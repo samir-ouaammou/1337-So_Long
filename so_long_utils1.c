@@ -1,23 +1,5 @@
 #include "so_long.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
-{
-	int	i;
-
-	if (!s1 || !s2)
-		return (-1);
-	i = 0;
-	while (s1[i] && s2[i] && s1[i] == s2[i])
-		i++;
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-}
-
-void	ft_msgerror(char *msg)
-{
-	write(2, msg, ft_strlen(msg));
-	exit(-1);
-}
-
 void	ft_init_map_elements(t_map *elements)
 {
 	elements->floor = 0;
@@ -29,6 +11,8 @@ void	ft_init_map_elements(t_map *elements)
 	elements->line = 0;
 	elements->temp = 0;
 	elements->str = 0;
+	elements->rows = 0;
+	elements->cols = 0;
 	elements->len = 0;
 	elements->fd = 0;
 	elements->i = 0;
@@ -53,13 +37,12 @@ void	ft_checkmap(char *str, t_map *map, char c)
 			map->player++;
 		else if (c != '0' && c != '1' && c != 'C' && c != 'E' && c != 'P')
 		{
-			write(2, "Error\nInvalid character found. Only the following are allowed:" ,62);
-			ft_msgerror("\n0 = Floor\n1 = Wall\nC = Money\nP = Player\nE = Door\n");
+			write(2, "Error\nInvalid character found. Only the ", 40);
+			write(2, "following are allowed:\n0 = Floor\n", 33);
+			ft_msgerror("1 = Wall\nC = Money\nP = Player\nE = Door\n");
 		}
 		map->i++;
 	}
-	if (map->len != map->i)
-		ft_msgerror("Error\nThe map is invalid. All lines must have the same\n");
 }
 
 void	ft_checkwall(char *str, int index, int n)
@@ -72,7 +55,10 @@ void	ft_checkwall(char *str, int index, int n)
 		while (str[i])
 		{
 			if (str[i] != '1')
-				ft_msgerror("Error\nThe map must be surrounded by walls (1) on all sides.\n");
+			{
+				write(2, "Error\nThe map must be surrounded ", 33);
+				ft_msgerror("by walls (1) on all sides.\n");
+			}
 			i++;
 		}
 	}
@@ -82,6 +68,8 @@ void	ft_checkwall(char *str, int index, int n)
 
 void	ft_verify_map_elements(t_map *map)
 {
+	if (!map->str)
+		ft_msgerror("Error\nThe map file is empty\n");
 	map->len = ft_strlen(map->map[0]);
 	while (map->map[map->j])
 	{
@@ -90,6 +78,11 @@ void	ft_verify_map_elements(t_map *map)
 		else
 			ft_checkwall(map->map[map->j], map->j, 42);
 		ft_checkmap(map->map[map->j], map, '$');
+		if (map->len != map->i)
+		{
+			write(2, "Error\nThe map is invalid. ", 26);
+			ft_msgerror("All lines must have the same length\n");
+		}
 		map->j++;
 	}
 	if (map->player != 1)
@@ -106,7 +99,10 @@ void	ft_read_map_file(char *mapfile)
 
 	map.len = ft_strlen(mapfile);
 	if ((map.len < 5) || (ft_strcmp(&mapfile[map.len - 4], ".ber") != 0))
-		ft_msgerror("Error\nInvalid map file name. Please use a valid file,like map.ber\n");
+	{
+		write(2, "Error\nInvalid map file name. ", 29);
+		ft_msgerror("Please use a valid file, like map.ber\n");
+	}
 	ft_init_map_elements(&map);
 	map.fd = open(mapfile, O_RDONLY);
 	if (map.fd == -1)
