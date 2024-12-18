@@ -7,13 +7,13 @@ void	ft_init_map_elements(t_map *elements)
 	elements->money = 0;
 	elements->door = 0;
 	elements->player = 0;
+	elements->copy = 0;
 	elements->map = 0;
 	elements->line = 0;
 	elements->temp = 0;
 	elements->str = 0;
-	elements->rows = 0;
-	elements->cols = 0;
 	elements->len = 0;
+	elements->nbr = 0;
 	elements->fd = 0;
 	elements->i = 0;
 	elements->j = 0;
@@ -69,7 +69,7 @@ void	ft_checkwall(char *str, int index, int n)
 void	ft_verify_map_elements(t_map *map)
 {
 	if (!map->str)
-		ft_msgerror("Error\nThe map file is empty\n");
+		ft_msgerror("Error\nThe map file is empty.\n");
 	map->len = ft_strlen(map->map[0]);
 	while (map->map[map->j])
 	{
@@ -81,7 +81,7 @@ void	ft_verify_map_elements(t_map *map)
 		if (map->len != map->i)
 		{
 			write(2, "Error\nThe map is invalid. ", 26);
-			ft_msgerror("All lines must have the same length\n");
+			ft_msgerror("All lines must have the same length.\n");
 		}
 		map->j++;
 	}
@@ -91,6 +91,7 @@ void	ft_verify_map_elements(t_map *map)
 		ft_msgerror("Error\nThe map must contain exactly one door 'E'.\n");
 	if (map->money < 1)
 		ft_msgerror("Error\nThe map must contain at least one money 'C'.\n");
+	ft_validate_map_elements(map);
 }
 
 void	ft_read_map_file(char *mapfile)
@@ -101,12 +102,12 @@ void	ft_read_map_file(char *mapfile)
 	if ((map.len < 5) || (ft_strcmp(&mapfile[map.len - 4], ".ber") != 0))
 	{
 		write(2, "Error\nInvalid map file name. ", 29);
-		ft_msgerror("Please use a valid file, like map.ber\n");
+		ft_msgerror("Please use a valid file, like map.ber.\n");
 	}
 	ft_init_map_elements(&map);
 	map.fd = open(mapfile, O_RDONLY);
 	if (map.fd == -1)
-		ft_msgerror("Error\nopening file map\n");
+		ft_msgerror("Error\nopening file map.\n");
 	while (1)
 	{
 		map.line = get_next_line(map.fd);
@@ -114,9 +115,10 @@ void	ft_read_map_file(char *mapfile)
 			break ;
 		map.temp = ft_strjoin(map.str, map.line);
 		if (!map.temp)
-			ft_msgerror("Error\nFailed to read the file\n");
+			ft_msgerror("Error\nFailed to read the file.\n");
 		map.str = map.temp;
 	}
 	map.map = ft_split(map.str, '\n');
+	map.copy = ft_split(map.str, '\n');
 	ft_verify_map_elements(&map);
 }

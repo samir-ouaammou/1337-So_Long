@@ -90,7 +90,7 @@ char	**ft_split2(char **res, const char *s, char c)
 
 char	**ft_split(char const *s, char c)
 {
-	char **res;
+	char	**res;
 
 	if (!s)
 		return (NULL);

@@ -9,15 +9,6 @@
 
 # define BUFFER_SIZE 1
 
-char	*get_next_line(int fd);
-void	ft_msgerror(char *msg);
-size_t	ft_strlen(const char *str);
-char	*ft_strdup(const char *str);
-void    ft_read_map_file(char *mapfile);
-char	*ft_strjoin(char *s1, char *s2);
-char	**ft_split(char const *s, char c);
-int		ft_strchr(const char *str, char c);
-int	    ft_strcmp(const char *s1, const char *s2);
 
 typedef struct  s_map
 {
@@ -26,16 +17,27 @@ typedef struct  s_map
     int     money;
     int     door;
     int     player;
+    char    **copy;
     char    **map;
     char    *line;
     char    *temp;
     char    *str;
-    int     rows;
-    int     cols;
     int     len;
+    int     nbr;
     int     fd;
     int     i;
     int     j;
 } t_map;
+
+char	*get_next_line(int fd);
+void	ft_msgerror(char *msg);
+size_t	ft_strlen(const char *str);
+char	*ft_strdup(const char *str);
+void    ft_read_map_file(char *mapfile);
+char	*ft_strjoin(char *s1, char *s2);
+char	**ft_split(char const *s, char c);
+int		ft_strchr(const char *str, char c);
+void	ft_validate_map_elements(t_map *map);
+int	    ft_strcmp(const char *s1, const char *s2);
 
 #endif
