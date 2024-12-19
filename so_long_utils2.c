@@ -102,6 +102,6 @@ void	ft_validate_map_elements(t_map_checker *map)
 	{
 		write(2, "Error\nInvalid map: C (money), P (player), ", 42);
 		write(2, "or E (door) must not be trapped by 1 (walls). ", 46);
-		ft_msgerror("Ensure they are accessible.\n", map);
+		ft_msgerror("Ensure they are accessible\n", map);
 	}
 }

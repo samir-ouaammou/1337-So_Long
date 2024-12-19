@@ -31,20 +31,22 @@ void	ft_checkwall(char *str, int n, t_map_checker *map)
 			if (str[i] != '1')
 			{
 				write(2, "Error\nThe map must be surrounded ", 33);
-				ft_msgerror("by walls (1) on all sides.\n", map);
+				ft_msgerror("by walls (1) on all sides\n", map);
 			}
 			i++;
 		}
 	}
 	if (str[0] != '1' || str[ft_strlen(str) - 1] != '1')
-		ft_msgerror("Error\nEach row must start and end with a wall (1).\n",
-					map);
+	{
+		write (2, "Error\nEach row must start and", 29);
+		ft_msgerror(" end with a wall (1)\n", map);
+	}
 }
 
 void	ft_verify_map_elements(t_map_checker *map)
 {
 	if (!map->str)
-		ft_msgerror("Error\nThe map file is empty.\n", map);
+		ft_msgerror("Error\nThe map file is empty\n", map);
 	map->len = ft_strlen(map->map[0]);
 	while (map->map[map->j])
 	{
@@ -56,7 +58,7 @@ void	ft_verify_map_elements(t_map_checker *map)
 		if (map->len != map->i)
 		{
 			write(2, "Error\nThe map is invalid. ", 26);
-			ft_msgerror("All lines must have the same length.\n", map);
+			ft_msgerror("All lines must have the same length\n", map);
 		}
 		map->j++;
 	}
@@ -85,7 +87,7 @@ void	ft_read_map_file(t_map_checker *map)
 		}
 		map->temp = ft_strjoin(map->str, map->line);
 		if (!map->temp)
-			ft_msgerror("Error\nFailed to read the file.\n", map);
+			ft_msgerror("Error\nFailed to read the file\n", map);
 		map->str = map->temp;
 		free(map->line);
 	}
@@ -99,12 +101,12 @@ char	**ft_check_map_file(char *mapfile)
 	if ((map.len < 5) || (ft_strcmp(&mapfile[map.len - 4], ".ber") != 0))
 	{
 		write(2, "Error\nInvalid map file name. ", 29);
-		ft_msgerror("Please use a valid file, like map.ber.\n", &map);
+		ft_msgerror("Please use a valid file, like map.ber\n", NULL);
 	}
 	ft_init_map_elements(&map);
 	map.fd = open(mapfile, O_RDONLY);
 	if (map.fd == -1)
-		ft_msgerror("Error\nopening file map.\n", &map);
+		ft_msgerror("Error\nError opening file map\n", NULL);
 	ft_read_map_file(&map);
 	map.map = ft_split(map.str, '\n');
 	map.copy = ft_split(map.str, '\n');

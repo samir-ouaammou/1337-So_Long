@@ -6,6 +6,9 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <X11/X.h>
+# include <X11/keysym.h>
+// # include <mlx.h>
 
 # define BUFFER_SIZE 1
 

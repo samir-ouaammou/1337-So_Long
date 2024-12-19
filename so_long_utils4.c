@@ -30,10 +30,17 @@ void	ft_free_map(char **temp)
 
 void	ft_msgerror(char *msg, t_map_checker *map)
 {
-	free(map->str);
-	free(map->line);
-	ft_free_map(map->map);
-	ft_free_map(map->copy);
+	if (map != NULL)
+	{
+		if (map->str)
+			free(map->str);
+		if (map->line)
+			free(map->line);
+		if (map->map)
+			ft_free_map(map->map);
+		if (map->copy)
+			ft_free_map(map->copy);
+	}
 	write(2, msg, ft_strlen(msg));
 	exit(-1);
 }
