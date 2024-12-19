@@ -1,6 +1,6 @@
 #include "so_long.h"
 
-void	ft_checkmap(char *str, t_map *map, char c)
+void	ft_checkmap(char *str, t_map_checker *map, char c)
 {
 	map->i = 0;
 	while (str[map->i])
@@ -41,7 +41,7 @@ void	ft_flood_fill(char **strs, int i, int j, char c)
 	ft_flood_fill(strs, i, j - 1, c);
 }
 
-void	ft_update_and_validate_elements(t_map *map)
+void	ft_update_and_validate_elements(t_map_checker *map)
 {
 	map->i = 0;
 	while (map->copy[map->i])
@@ -60,7 +60,7 @@ void	ft_update_and_validate_elements(t_map *map)
 	ft_flood_fill(map->copy, map->i, map->j, 'C');
 }
 
-void	ft_count_and_check_flood_fill(t_map *map)
+void	ft_count_and_check_flood_fill(t_map_checker *map)
 {
 	map->i = 0;
 	map->len = 0;
@@ -81,7 +81,7 @@ void	ft_count_and_check_flood_fill(t_map *map)
 		map->len = ((map->len + map->nbr) - map->floor);
 }
 
-void	ft_validate_map_elements(t_map *map)
+void	ft_validate_map_elements(t_map_checker *map)
 {
 	map->i = 0;
 	while (map->copy[map->i])

@@ -1,6 +1,6 @@
 #include "so_long.h"
 
-void	ft_init_map_elements(t_map *elements)
+void	ft_init_map_elements(t_map_checker *elements)
 {
 	elements->floor = 0;
 	elements->wall = 0;
@@ -19,7 +19,7 @@ void	ft_init_map_elements(t_map *elements)
 	elements->j = 0;
 }
 
-void	ft_checkwall(char *str, int n, t_map *map)
+void	ft_checkwall(char *str, int n, t_map_checker *map)
 {
 	int	i;
 
@@ -38,10 +38,10 @@ void	ft_checkwall(char *str, int n, t_map *map)
 	}
 	if (str[0] != '1' || str[ft_strlen(str) - 1] != '1')
 		ft_msgerror("Error\nEach row must start and end with a wall (1).\n",
-			map);
+					map);
 }
 
-void	ft_verify_map_elements(t_map *map)
+void	ft_verify_map_elements(t_map_checker *map)
 {
 	if (!map->str)
 		ft_msgerror("Error\nThe map file is empty.\n", map);
@@ -61,16 +61,16 @@ void	ft_verify_map_elements(t_map *map)
 		map->j++;
 	}
 	if (map->player != 1)
-		ft_msgerror("Error\nThe map must contain exactly one player 'P'.\n", map);
+		ft_msgerror("Error\nThe map must contain exactly one player P\n", map);
 	if (map->door != 1)
-		ft_msgerror("Error\nThe map must contain exactly one door 'E'.\n", map);
+		ft_msgerror("Error\nThe map must contain exactly one door E\n", map);
 	if (map->money < 1)
-		ft_msgerror("Error\nThe map must contain at least one money 'C'.\n", map);
+		ft_msgerror("Error\nThe map must contain at least one money C\n", map);
 	ft_validate_map_elements(map);
 	ft_free_map(map->copy);
 }
 
-void	ft_read_map_file(t_map *map)
+void	ft_read_map_file(t_map_checker *map)
 {
 	while (1)
 	{
@@ -93,7 +93,7 @@ void	ft_read_map_file(t_map *map)
 
 char	**ft_check_map_file(char *mapfile)
 {
-	t_map	map;
+	t_map_checker	map;
 
 	map.len = ft_strlen(mapfile);
 	if ((map.len < 5) || (ft_strcmp(&mapfile[map.len - 4], ".ber") != 0))

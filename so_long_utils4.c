@@ -28,7 +28,7 @@ void	ft_free_map(char **temp)
 	}
 }
 
-void	ft_msgerror(char *msg, t_map *map)
+void	ft_msgerror(char *msg, t_map_checker *map)
 {
 	free(map->str);
 	free(map->line);
