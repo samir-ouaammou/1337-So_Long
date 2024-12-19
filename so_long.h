@@ -30,14 +30,16 @@ typedef struct  s_map
 } t_map;
 
 char	*get_next_line(int fd);
-void	ft_msgerror(char *msg);
+void	ft_free_map(char **temp);
 size_t	ft_strlen(const char *str);
 char	*ft_strdup(const char *str);
-void    ft_read_map_file(char *mapfile);
 char	*ft_strjoin(char *s1, char *s2);
 char	**ft_split(char const *s, char c);
+char	**ft_check_map_file(char *mapfile);
 int		ft_strchr(const char *str, char c);
+void	ft_msgerror(char *msg, t_map *map);
 void	ft_validate_map_elements(t_map *map);
 int	    ft_strcmp(const char *s1, const char *s2);
+void	ft_checkmap(char *str, t_map *map, char c);
 
 #endif

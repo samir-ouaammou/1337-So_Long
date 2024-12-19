@@ -11,3 +11,29 @@ int	ft_strcmp(const char *s1, const char *s2)
 		i++;
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
+
+void	ft_free_map(char **temp)
+{
+	int	i;
+
+	i = 0;
+	if (temp != NULL)
+	{
+		while (temp[i])
+		{
+			free(temp[i]);
+			i++;
+		}
+		free(temp);
+	}
+}
+
+void	ft_msgerror(char *msg, t_map *map)
+{
+	free(map->str);
+	free(map->line);
+	ft_free_map(map->map);
+	ft_free_map(map->copy);
+	write(2, msg, ft_strlen(msg));
+	exit(-1);
+}

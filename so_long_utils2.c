@@ -1,9 +1,29 @@
 #include "so_long.h"
 
-void	ft_msgerror(char *msg)
+void	ft_checkmap(char *str, t_map *map, char c)
 {
-	write(2, msg, ft_strlen(msg));
-	exit(-1);
+	map->i = 0;
+	while (str[map->i])
+	{
+		c = str[map->i];
+		if (c == '0')
+			map->floor++;
+		else if (c == '1')
+			map->wall++;
+		else if (c == 'C')
+			map->money++;
+		else if (c == 'E')
+			map->door++;
+		else if (c == 'P')
+			map->player++;
+		else if (c != '0' && c != '1' && c != 'C' && c != 'E' && c != 'P')
+		{
+			write(2, "Error\nInvalid character found. Only the ", 40);
+			write(2, "following are allowed:\n0 = Floor\n", 33);
+			ft_msgerror("1 = Wall\nC = Money\nP = Player\nE = Door\n", map);
+		}
+		map->i++;
+	}
 }
 
 void	ft_flood_fill(char **strs, int i, int j, char c)
@@ -33,7 +53,7 @@ void	ft_update_and_validate_elements(t_map *map)
 				break ;
 			map->j++;
 		}
-		if (ft_strlen(map->copy[map->i]) != map->j)
+		if (ft_strlen(map->copy[map->i]) != (size_t)map->j)
 			break ;
 		map->i++;
 	}
@@ -82,6 +102,6 @@ void	ft_validate_map_elements(t_map *map)
 	{
 		write(2, "Error\nInvalid map: C (money), P (player), ", 42);
 		write(2, "or E (door) must not be trapped by 1 (walls). ", 46);
-		ft_msgerror("Ensure they are accessible.\n");
+		ft_msgerror("Ensure they are accessible.\n", map);
 	}
 }
