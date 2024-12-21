@@ -5,7 +5,7 @@ OBJS = $(FILES:.c=.o)
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 
 LIBS =  -lmlx -lXext -lX11 -lm -lbsd
 
@@ -16,7 +16,7 @@ RM = rm -rf
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
