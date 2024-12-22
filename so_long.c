@@ -4,24 +4,24 @@ typedef struct	s_game
 {
 	void	*mlx;
 	void	*win;
-	void	*player_img;
-	void	*money_img;
-	void	*floor_img;
-	void	*wall_img;
-	void	*door_img;
+	void	*p_img;
+	void	*m_img;
+	void	*f_img;
+	void	*w_img;
+	void	*d_img;
 	char	**map;
 	int		height;
 	int		width;
-	int		player_i;
-	int		player_j;
 	int		temp;
+	int		p_i;
+	int		p_j;
 	int		i;
 	int		j;
 	int img_width;
 	int img_height;
 }	t_game;
 
-int close_window(void)
+int ft_close_window(void)
 {
 	exit(0);
 	return (0);
@@ -37,6 +37,109 @@ void	ft_window_size(t_game *window)
 	window->width *= 64;
 }
 
+void	ft_put_image_to_window(t_game *game, int nbr)
+{
+	if (nbr == 0)
+		mlx_put_image_to_window(game->mlx, game->win, game->f_img, game->j * 64, game->i * 64);
+	else if (nbr == 1)
+		mlx_put_image_to_window(game->mlx, game->win, game->w_img, game->j * 64, game->i * 64);
+	else if (nbr == 'C')
+		mlx_put_image_to_window(game->mlx, game->win, game->m_img, game->j * 64, game->i * 64);
+	else if (nbr == 'P')
+		mlx_put_image_to_window(game->mlx, game->win, game->p_img, game->j * 64, game->i * 64);
+	else if (nbr == 'E')
+		mlx_put_image_to_window(game->mlx, game->win, game->d_img, game->j * 64, game->i * 64);
+}
+void ft_draw_map(t_game *game)
+{
+	game->i = 0;
+	while (game->map[game->i])
+	{
+		game->j = 0;
+		while (game->map[game->i][game->j])
+		{
+			if (game->map[game->i][game->j] == 'P')
+			{
+				game->p_i = game->i;
+				game->p_j = game->j;
+			}
+			if (game->map[game->i][game->j] == '1')
+				ft_put_image_to_window(game, 1);
+			else if (game->map[game->i][game->j] == 'C')
+				ft_put_image_to_window(game, 'C');
+			else if (game->map[game->i][game->j] == 'P')
+				ft_put_image_to_window(game, 'P');
+			else if (game->map[game->i][game->j] == 'E')
+				ft_put_image_to_window(game, 'E');
+			else
+				ft_put_image_to_window(game, 0);
+
+			game->j++;
+		}
+		game->i++;
+	}
+}
+
+void	ft_load_textures(t_game *game)
+{
+	game->w_img = mlx_xpm_file_to_image(game->mlx, "textures/wall.xpm", &game->i, &game->j);
+	game->f_img = mlx_xpm_file_to_image(game->mlx, "textures/floor.xpm", &game->i, &game->j);
+	game->m_img = mlx_xpm_file_to_image(game->mlx, "textures/money.xpm", &game->i, &game->j);
+	game->d_img = mlx_xpm_file_to_image(game->mlx, "textures/door_close.xpm", &game->i, &game->j);
+	game->p_img = mlx_xpm_file_to_image(game->mlx, "textures/player.xpm", &game->i, &game->j);
+}
+
+int	ft_key_hook(int keycode, t_game *game)
+{
+	printf("Key pressed: %d\n", keycode);
+	if (keycode == 65361)
+	{
+		if (game->p_j > 1 && game->map[game->p_i][game->p_j] != '1')
+		{
+			mlx_put_image_to_window(game->mlx, game->win, game->f_img, game->p_j * 64, game->p_i * 64);
+			game->map[game->p_i][game->p_j] = '0';
+			game->p_j--;
+			game->map[game->p_i][game->p_j] = 'P';
+			mlx_put_image_to_window(game->mlx, game->win, game->p_img, game->p_j * 64, game->p_i * 64);
+			return (0);
+		}
+	}
+	else if (keycode == 65362)
+	{
+		if (game->p_i > 1 && game->map[game->p_i][game->p_j] != '1')
+		{
+			mlx_put_image_to_window(game->mlx, game->win, game->f_img, game->p_j * 64, game->p_i * 64);
+			game->map[game->p_i][game->p_j] = '0';
+			game->p_i--;
+			game->map[game->p_i][game->p_j] = 'P';
+			mlx_put_image_to_window(game->mlx, game->win, game->p_img, game->p_j * 64, game->p_i * 64);
+		}
+	}
+	else if (keycode == 65363)
+	{
+		if (game->p_j > 1 && game->map[game->p_i][game->p_j] != '1')
+		{
+			mlx_put_image_to_window(game->mlx, game->win, game->f_img, game->p_j * 64, game->p_i * 64);
+			game->map[game->p_i][game->p_j] = '0';
+			game->p_j++;
+			game->map[game->p_i][game->p_j] = 'P';
+			mlx_put_image_to_window(game->mlx, game->win, game->p_img, game->p_j * 64, game->p_i * 64);
+			return (0);
+		}
+	}
+	else if (keycode == 65364)
+	{
+		if (game->p_i > 1 && game->map[game->p_i][game->p_j] != '1')
+		{
+			mlx_put_image_to_window(game->mlx, game->win, game->f_img, game->p_j * 64, game->p_i * 64);
+			game->map[game->p_i][game->p_j] = '0';
+			game->p_i++;
+			game->map[game->p_i][game->p_j] = 'P';
+			mlx_put_image_to_window(game->mlx, game->win, game->p_img, game->p_j * 64, game->p_i * 64);
+		}
+	}
+	return (0);
+}
 
 int	main(int ac, char **av)
 {
@@ -48,49 +151,106 @@ int	main(int ac, char **av)
 	game.map = ft_check_map_file(av[1]);
 	ft_window_size(&game);
 	game.mlx = mlx_init();
-
-
-	game.wall_img = mlx_xpm_file_to_image(game.mlx, "./textures/wall.xpm", &game.i, &game.j);
-	game.floor_img = mlx_xpm_file_to_image(game.mlx, "./textures/floor.xpm", &game.i, &game.j);
-	game.door_img = mlx_xpm_file_to_image(game.mlx, "./textures/door_open.xpm", &game.i, &game.j);
-	game.player_img = mlx_xpm_file_to_image(game.mlx, "./textures/player.xpm", &game.i, &game.j);
-	game.money_img = mlx_xpm_file_to_image(game.mlx, "./textures/money.xpm", &game.i, &game.j);
-	if (!game.wall_img || !game.floor_img)
-		ft_msgerror("Error img\n", NULL);
-	
 	if (!game.mlx)
 	{
 		ft_free_map(game.map);
-		ft_msgerror("Error\nFailed to initialize MiniLibX.\n", NULL);
+		ft_msgerror("Error\nerrormlx init\n", NULL);
 	}
-    game.win = mlx_new_window(game.mlx, game.width, game.height, "Samir Ouaammou");
-
-	game.player_i = 0;
-	while (game.map[game.player_i])
+	game.win = mlx_new_window(game.mlx, game.width, game.height, "Game Si Samir");
+	if (!game.win)
 	{
-		game.player_j = 0;
-		while (game.map[game.player_i][game.player_j])
-		{
-			if (game.map[game.player_i][game.player_j] == '1')
-				mlx_put_image_to_window(game.mlx, game.win, game.wall_img, (game.player_j * 64), (game.player_i * 64));
-			else if (game.map[game.player_i][game.player_j] == '0')
-				mlx_put_image_to_window(game.mlx, game.win, game.floor_img, (game.player_j * 64), (game.player_i * 64));
-			else if (game.map[game.player_i][game.player_j] == 'E')
-				mlx_put_image_to_window(game.mlx, game.win, game.door_img, (game.player_j * 64), (game.player_i * 64));
-			else if (game.map[game.player_i][game.player_j] == 'P')
-				mlx_put_image_to_window(game.mlx, game.win, game.player_img, (game.player_j * 64), (game.player_i * 64));
-			else if (game.map[game.player_i][game.player_j] == 'C')
-				mlx_put_image_to_window(game.mlx, game.win, game.money_img, (game.player_j * 64), (game.player_i * 64));
-
-
-			game.player_j++;
-		}
-		game.player_i++;
+		ft_free_map(game.map);
+		ft_msgerror("Error\nerror mlw new window\n", NULL);
 	}
-
-
-	mlx_hook(game.win, 17, 0, close_window, NULL);
+	ft_load_textures(&game);
+	
+	if (!game.w_img)
+	{
+		ft_free_map(game.map);
+		ft_msgerror("Error\nerror mlx xpm file to image\n", NULL);
+	}
+	ft_draw_map(&game);
+	mlx_key_hook(game.win, ft_key_hook, &game);
+	mlx_hook(game.win, 17, 0, ft_close_window, NULL);
 	mlx_loop(game.mlx);
-
+	ft_free_map(game.map);
 	return (0);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// int	ft_key_hook(int keycode, t_game *game)
+// {
+// 	printf("%d\n", keycode);
+// 	if (keycode == 65361)
+// 	{
+// 		if (game->j > 0)
+// 		{
+// 			game->map[game->i][game->j] = '0';
+// 			game->map[game->i][game->j - 1] = 'p';
+// 		}
+// 		ft_draw_map(game);
+// 	}
+// 	return (0);
+// }
+
+// int	main(int ac, char **av)
+// {
+// 	t_game game;
+
+// 	if (ac != 2)
+// 		ft_msgerror("Error\nInvalid number of arguments.\n", NULL);
+
+// 	game.map = ft_check_map_file(av[1]);
+// 	ft_window_size(&game);
+// 	game.mlx = mlx_init();
+// 	if (!game.mlx)
+// 	{
+// 		ft_free_map(game.map);
+// 		ft_msgerror("Error\nerrormlx init\n", NULL);
+// 	}
+// 	game.win = mlx_new_window(game.mlx, game.width, game.height, "Game Si Samir");
+// 	if (!game.win)
+// 	{
+// 		ft_free_map(game.map);
+// 		ft_msgerror("Error\nerror mlw new window\n", NULL);
+// 	}
+// 	game.w_img = mlx_xpm_file_to_image(game.mlx, "textures/wall.xpm", &game.i, &game.j);
+// 	game.f_img = mlx_xpm_file_to_image(game.mlx, "textures/floor.xpm", &game.i, &game.j);
+// 	game.m_img = mlx_xpm_file_to_image(game.mlx, "textures/money.xpm", &game.i, &game.j);
+// 	game.p_img = mlx_xpm_file_to_image(game.mlx, "textures/door_open.xpm", &game.i, &game.j);
+// 	if (!game.w_img)
+// 	{
+// 		ft_free_map(game.map);
+// 		ft_msgerror("Error\nerror mlx xpm file to image\n", NULL);
+// 	}
+// 	ft_draw_map(&game);
+// 	while (1)
+// 	{
+// 		mlx_key_hook(game.win, ft_key_hook, &game);
+// 	}
+	
+// 	mlx_hook(game.win, 17, 0, ft_close_window, NULL);
+// 	mlx_loop(game.mlx);
+// 	ft_free_map(game.map);
+// 	return (0);
+// }

@@ -38,7 +38,7 @@ void	ft_checkwall(char *str, int n, t_map_checker *map)
 	}
 	if (str[0] != '1' || str[ft_strlen(str) - 1] != '1')
 	{
-		write (2, "Error\nEach row must start and", 29);
+		write(2, "Error\nEach row must start and", 29);
 		ft_msgerror(" end with a wall (1)\n", map);
 	}
 }

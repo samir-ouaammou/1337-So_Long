@@ -31,6 +31,7 @@ typedef struct s_map_checker
 	int	j;
 }	t_map_checker;
 
+
 char	*get_next_line(int fd);
 void	ft_free_map(char **temp);
 size_t	ft_strlen(const char *str);
