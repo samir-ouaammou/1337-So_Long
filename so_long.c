@@ -9,16 +9,19 @@ typedef struct	s_game
 	void	*f_img;
 	void	*w_img;
 	void	*d_img;
+	int		money;
+	int		door;
+	int		floor;
+	int		wall;
 	char	**map;
 	int		height;
 	int		width;
 	int		temp;
+	int		nbr;
 	int		p_i;
 	int		p_j;
 	int		i;
 	int		j;
-	int img_width;
-	int img_height;
 }	t_game;
 
 int ft_close_window(void)
@@ -50,8 +53,10 @@ void	ft_put_image_to_window(t_game *game, int nbr)
 	else if (nbr == 'E')
 		mlx_put_image_to_window(game->mlx, game->win, game->d_img, game->j * 64, game->i * 64);
 }
+
 void ft_draw_map(t_game *game)
 {
+	game->money = 0;
 	game->i = 0;
 	while (game->map[game->i])
 	{
@@ -92,9 +97,9 @@ void	ft_load_textures(t_game *game)
 int	ft_key_hook(int keycode, t_game *game)
 {
 	printf("Key pressed: %d\n", keycode);
-	if (keycode == 65361)
+	if (keycode == 65361 || keycode == 'a')
 	{
-		if (game->p_j > 1 && game->map[game->p_i][game->p_j] != '1')
+		if (game->p_j > 1 || game->map[game->p_i][game->p_j] != '1')
 		{
 			mlx_put_image_to_window(game->mlx, game->win, game->f_img, game->p_j * 64, game->p_i * 64);
 			game->map[game->p_i][game->p_j] = '0';
@@ -104,7 +109,7 @@ int	ft_key_hook(int keycode, t_game *game)
 			return (0);
 		}
 	}
-	else if (keycode == 65362)
+	else if (keycode == 65362 || keycode == 'w')
 	{
 		if (game->p_i > 1 && game->map[game->p_i][game->p_j] != '1')
 		{
@@ -115,9 +120,9 @@ int	ft_key_hook(int keycode, t_game *game)
 			mlx_put_image_to_window(game->mlx, game->win, game->p_img, game->p_j * 64, game->p_i * 64);
 		}
 	}
-	else if (keycode == 65363)
+	else if (keycode == 65363 || keycode == 'd')
 	{
-		if (game->p_j > 1 && game->map[game->p_i][game->p_j] != '1')
+		if (game->p_j < game->j - 2  && game->map[game->p_i][game->p_j] != '1')
 		{
 			mlx_put_image_to_window(game->mlx, game->win, game->f_img, game->p_j * 64, game->p_i * 64);
 			game->map[game->p_i][game->p_j] = '0';
@@ -127,9 +132,9 @@ int	ft_key_hook(int keycode, t_game *game)
 			return (0);
 		}
 	}
-	else if (keycode == 65364)
+	else if (keycode == 65364 || keycode == 's')
 	{
-		if (game->p_i > 1 && game->map[game->p_i][game->p_j] != '1')
+		if (game->p_i < game->i - 2 && game->map[game->p_i][game->p_j] != '1')
 		{
 			mlx_put_image_to_window(game->mlx, game->win, game->f_img, game->p_j * 64, game->p_i * 64);
 			game->map[game->p_i][game->p_j] = '0';
