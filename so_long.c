@@ -6,7 +6,7 @@
 /*   By: souaammo <souaammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 15:20:25 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/23 18:11:53 by souaammo         ###   ########.fr       */
+/*   Updated: 2024/12/23 20:53:22 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void	ft_put_image_to_window(t_game *game, int nbr)
 	{
 		game->d_i = game->i;
 		game->d_j = game->j;
-		mlx_put_image_to_window(game->mlx, game->win, game->d_c_img, game->j
-			* 64, game->i * 64);
+		mlx_put_image_to_window(game->mlx, game->win, game->f_img, game->j * 64,
+			game->i * 64);
 	}
 }
 
