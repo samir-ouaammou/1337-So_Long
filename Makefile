@@ -5,7 +5,7 @@ OBJS = $(FILES:.c=.o)
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror  -g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror
 
 LIBS =  -lmlx -lXext -lX11 -lm -lbsd
 

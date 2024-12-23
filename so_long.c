@@ -40,7 +40,10 @@ void	ft_draw_map(t_game *game)
 			else if (game->map[game->i][game->j] == '1')
 				ft_put_image_to_window(game, 1);
 			else if (game->map[game->i][game->j] == 'C')
+			{
+				game->money++;
 				ft_put_image_to_window(game, 'C');
+			}
 			else if (game->map[game->i][game->j] == 'E')
 				ft_put_image_to_window(game, 'E');
 			else
