@@ -1,5 +1,5 @@
 FILES = so_long.c so_long_utils1.c so_long_utils2.c so_long_utils3.c so_long_utils4.c \
-        get_next_line.c get_next_line_utils.c
+        so_long_utils6.c	get_next_line.c get_next_line_utils.c
 
 OBJS = $(FILES:.c=.o)
 
