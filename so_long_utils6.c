@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long_utils6.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: souaammo <souaammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 15:22:47 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/23 15:22:49 by souaammo         ###   ########.fr       */
+/*   Updated: 2024/12/23 18:11:36 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ void	ft_move_player_right(t_game *game)
 		game->map[game->p_i][game->p_j] = 'P';
 		mlx_put_image_to_window(game->mlx, game->win, game->p_img, game->p_j
 			* 64, game->p_i * 64);
-		if (game->nbr == game->money && game->p_i != game->d_i
-			&& game->p_j != game->d_j)
+		if (game->nbr == game->money)
 			mlx_put_image_to_window(game->mlx, game->win, game->d_o_img,
 				game->d_j * 64, game->d_i * 64);
 		if (game->p_i == game->d_i && game->p_j == game->d_j)
@@ -54,8 +53,7 @@ void	ft_move_player_left(t_game *game)
 		game->map[game->p_i][game->p_j] = 'P';
 		mlx_put_image_to_window(game->mlx, game->win, game->p_img, game->p_j
 			* 64, game->p_i * 64);
-		if (game->nbr == game->money && game->p_i != game->d_i
-			&& game->p_j != game->d_j)
+		if (game->nbr == game->money)
 			mlx_put_image_to_window(game->mlx, game->win, game->d_o_img,
 				game->d_j * 64, game->d_i * 64);
 		if (game->p_i == game->d_i && game->p_j == game->d_j)
@@ -80,8 +78,7 @@ void	ft_move_player_up(t_game *game)
 		game->map[game->p_i][game->p_j] = 'P';
 		mlx_put_image_to_window(game->mlx, game->win, game->p_img, game->p_j
 			* 64, game->p_i * 64);
-		if (game->nbr == game->money && game->p_i != game->d_i
-			&& game->p_j != game->d_j)
+		if (game->nbr == game->money)
 			mlx_put_image_to_window(game->mlx, game->win, game->d_o_img,
 				game->d_j * 64, game->d_i * 64);
 		if (game->p_i == game->d_i && game->p_j == game->d_j)
@@ -106,8 +103,7 @@ void	ft_move_player_down(t_game *game)
 		game->map[game->p_i][game->p_j] = 'P';
 		mlx_put_image_to_window(game->mlx, game->win, game->p_img, game->p_j
 			* 64, game->p_i * 64);
-		if (game->nbr == game->money && game->p_i != game->d_i
-			&& game->p_j != game->d_j)
+		if (game->nbr == game->money)
 			mlx_put_image_to_window(game->mlx, game->win, game->d_o_img,
 				game->d_j * 64, game->d_i * 64);
 		if (game->p_i == game->d_i && game->p_j == game->d_j)
