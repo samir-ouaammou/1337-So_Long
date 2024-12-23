@@ -1,41 +1,33 @@
 #include "so_long.h"
 
-int ft_close_window(void)
-{
-	exit(0);
-	return (0);
-}
-
-void	ft_window_size(t_game *window)
-{
-	window->height = 0;
-	while (window->map[window->height])
-		window->height++;
-	window->width = ft_strlen(window->map[0]);
-	window->height *= 64;
-	window->width *= 64;
-}
-
 void	ft_put_image_to_window(t_game *game, int nbr)
 {
 	if (nbr == 0)
 		mlx_put_image_to_window(game->mlx, game->win, game->f_img, game->j * 64,
-				game->i * 64);
+			game->i * 64);
 	else if (nbr == 1)
 		mlx_put_image_to_window(game->mlx, game->win, game->w_img, game->j * 64,
-				game->i * 64);
+			game->i * 64);
 	else if (nbr == 'C')
 		mlx_put_image_to_window(game->mlx, game->win, game->m_img, game->j * 64,
-				game->i * 64);
+			game->i * 64);
 	else if (nbr == 'P')
+	{
+		game->p_i = game->i;
+		game->p_j = game->j;
 		mlx_put_image_to_window(game->mlx, game->win, game->p_img, game->j * 64,
-				game->i * 64);
+			game->i * 64);
+	}
 	else if (nbr == 'E')
+	{
+		game->d_i = game->i;
+		game->d_j = game->j;
 		mlx_put_image_to_window(game->mlx, game->win, game->d_c_img, game->j
-				* 64, game->i * 64);
+			* 64, game->i * 64);
+	}
 }
 
-void ft_draw_map(t_game *game)
+void	ft_draw_map(t_game *game)
 {
 	game->i = 0;
 	while (game->map[game->i])
@@ -44,24 +36,15 @@ void ft_draw_map(t_game *game)
 		while (game->map[game->i][game->j])
 		{
 			if (game->map[game->i][game->j] == 'P')
-			{
-				game->p_i = game->i;
-				game->p_j = game->j;
 				ft_put_image_to_window(game, 'P');
-			}
 			else if (game->map[game->i][game->j] == '1')
 				ft_put_image_to_window(game, 1);
 			else if (game->map[game->i][game->j] == 'C')
 				ft_put_image_to_window(game, 'C');
 			else if (game->map[game->i][game->j] == 'E')
-			{
-				game->d_i = game->i;
-				game->d_j = game->j;
 				ft_put_image_to_window(game, 'E');
-			}
 			else
 				ft_put_image_to_window(game, 0);
-
 			game->j++;
 		}
 		game->i++;
@@ -78,56 +61,15 @@ void	ft_load_game_image(t_game *game)
 			&game->i, &game->j);
 	game->m_img = mlx_xpm_file_to_image(game->mlx, "textures/money.xpm",
 			&game->i, &game->j);
-	game->k_img = mlx_xpm_file_to_image(game->mlx, "textures/key.xpm",
-			&game->i, &game->j);
 	game->d_c_img = mlx_xpm_file_to_image(game->mlx, "textures/door_close.xpm",
 			&game->i, &game->j);
 	game->d_o_img = mlx_xpm_file_to_image(game->mlx, "textures/door_open.xpm",
 			&game->i, &game->j);
 }
 
-void	ft_init_game(t_game *game)
-{
-	game->mlx = NULL;
-	game->win = NULL;
-	game->p_img = NULL;
-	game->m_img = NULL;
-	game->f_img = NULL;
-	game->w_img = NULL;
-	game->d_c_img = NULL;
-	game->d_o_img = NULL;
-
-	game->money = 0;
-	game->door = 0;
-	game->floor = 0;
-	game->wall = 0;
-
-	game->map = NULL;
-
-	game->height = 0;
-	game->width = 0;
-
-	game->temp = 0;
-	game->nbr = 0;
-
-	game->p_i = 0;
-	game->p_j = 0;
-
-	game->i = 0;
-	game->j = 0;
-}
-
-
-void	ft_free_and_exit(t_game *game, char *msg)
-{
-	if (game->map)
-		ft_free_map(game->map);
-	ft_msgerror(msg, NULL);
-}
-
 int	main(int ac, char **av)
 {
-	t_game game;
+	t_game	game;
 
 	if (ac != 2)
 		ft_msgerror("Error\nInvalid number of arguments.\n", NULL);
@@ -137,22 +79,17 @@ int	main(int ac, char **av)
 	game.mlx = mlx_init();
 	if (!game.mlx)
 		ft_free_and_exit(&game, "Error\nerror mlx init\n");
-	game.win = mlx_new_window(game.mlx, game.width, game.height, "Game Si Samir");
+	game.win = mlx_new_window(game.mlx, game.width, game.height,
+			"Game Si Samir");
 	if (!game.win)
 		ft_free_and_exit(&game, "Error\nerror mlw new window\n");
 	ft_load_game_image(&game);
 	if (!game.w_img)
 		ft_free_and_exit(&game, "Error\nerror mlx xpm file to image\n");
 	ft_draw_map(&game);
-
-
-
-
-
 	mlx_key_hook(game.win, ft_key_hook, &game);
 	mlx_hook(game.win, 17, 0, ft_close_window, NULL);
 	mlx_loop(game.mlx);
 	ft_free_map(game.map);
 	return (0);
 }
-
