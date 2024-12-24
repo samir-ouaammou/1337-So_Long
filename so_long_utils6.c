@@ -6,7 +6,7 @@
 /*   By: souaammo <souaammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 15:22:47 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/24 13:21:13 by souaammo         ###   ########.fr       */
+/*   Updated: 2024/12/24 14:36:33 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	ft_move_player_right(t_game *game)
 {
-	write(1, "Player moved! 🚶‍♂️ Total steps: [", 42);
-	ft_putnbr(++game->p_m);
-	write(1, "]\n", 2);
 	if (game->map[game->p_i][game->p_j + 1] != '1')
 	{
+		write(1, "Player moved! 🚶‍♂️ Total steps: [", 42);
+		ft_putnbr(++game->p_m);
+		write(1, "]\n", 2);
 		if (game->map[game->p_i][game->p_j + 1] == 'C')
 			game->nbr++;
 		mlx_put_image_to_window(game->mlx, game->win, game->f_img, game->p_j
@@ -42,11 +42,11 @@ void	ft_move_player_right(t_game *game)
 
 void	ft_move_player_left(t_game *game)
 {
-	write(1, "Player moved! 🚶‍♂️ Total steps: [", 42);
-	ft_putnbr(++game->p_m);
-	write(1, "]\n", 2);
 	if (game->map[game->p_i][game->p_j - 1] != '1')
 	{
+		write(1, "Player moved! 🚶‍♂️ Total steps: [", 42);
+		ft_putnbr(++game->p_m);
+		write(1, "]\n", 2);
 		if (game->map[game->p_i][game->p_j - 1] == 'C')
 			game->nbr++;
 		mlx_put_image_to_window(game->mlx, game->win, game->f_img, game->p_j
@@ -70,11 +70,11 @@ void	ft_move_player_left(t_game *game)
 
 void	ft_move_player_up(t_game *game)
 {
-	write(1, "Player moved! 🚶‍♂️ Total steps: [", 42);
-	ft_putnbr(++game->p_m);
-	write(1, "]\n", 2);
 	if (game->map[game->p_i - 1][game->p_j] != '1')
 	{
+		write(1, "Player moved! 🚶‍♂️ Total steps: [", 42);
+		ft_putnbr(++game->p_m);
+		write(1, "]\n", 2);
 		if (game->map[game->p_i - 1][game->p_j] == 'C')
 			game->nbr++;
 		mlx_put_image_to_window(game->mlx, game->win, game->f_img, game->p_j
@@ -98,11 +98,11 @@ void	ft_move_player_up(t_game *game)
 
 void	ft_move_player_down(t_game *game)
 {
-	write(1, "Player moved! 🚶‍♂️ Total steps: [", 42);
-	ft_putnbr(++game->p_m);
-	write(1, "]\n", 2);
 	if (game->map[game->p_i + 1][game->p_j] != '1')
 	{
+		write(1, "Player moved! 🚶‍♂️ Total steps: [", 42);
+		ft_putnbr(++game->p_m);
+		write(1, "]\n", 2);
 		if (game->map[game->p_i + 1][game->p_j] == 'C')
 			game->nbr++;
 		mlx_put_image_to_window(game->mlx, game->win, game->f_img, game->p_j
