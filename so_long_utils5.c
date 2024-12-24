@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   so_long_utils5.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: souaammo <souaammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 15:21:19 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/23 15:21:21 by souaammo         ###   ########.fr       */
+/*   Updated: 2024/12/24 14:19:59 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "so_long.h"
 
 #include "so_long.h"
 
@@ -20,19 +22,23 @@ void	ft_init_game(t_game *game)
 	game->m_img = NULL;
 	game->f_img = NULL;
 	game->w_img = NULL;
+	game->k_img = NULL;
 	game->d_c_img = NULL;
 	game->d_o_img = NULL;
-	game->money = 0;
-	game->door = 0;
-	game->floor = 0;
-	game->wall = 0;
 	game->map = NULL;
 	game->height = 0;
 	game->width = 0;
+	game->floor = 0;
+	game->money = 0;
+	game->door = 0;
+	game->wall = 0;
 	game->temp = 0;
 	game->nbr = 0;
 	game->p_i = 0;
 	game->p_j = 0;
+	game->d_i = 0;
+	game->d_j = 0;
+	game->p_m = 0;
 	game->i = 0;
 	game->j = 0;
 }

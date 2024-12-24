@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long_utils4.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: souaammo <souaammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 15:21:11 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/23 15:21:12 by souaammo         ###   ########.fr       */
+/*   Updated: 2024/12/24 14:18:59 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,15 @@ void	ft_free_map(char **temp)
 		}
 		free(temp);
 	}
+}
+
+void	ft_putnbr(int nbr)
+{
+	if (nbr > 9)
+		ft_putnbr(nbr / 10);
+	nbr %= 10;
+	nbr += 48;
+	write (1, &nbr, 1);
 }
 
 void	ft_msgerror(char *msg, t_map_checker *map)

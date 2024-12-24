@@ -6,7 +6,7 @@
 /*   By: souaammo <souaammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 15:22:47 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/23 20:53:08 by souaammo         ###   ########.fr       */
+/*   Updated: 2024/12/24 13:21:13 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void	ft_move_player_right(t_game *game)
 {
+	write(1, "Player moved! 🚶‍♂️ Total steps: [", 42);
+	ft_putnbr(++game->p_m);
+	write(1, "]\n", 2);
 	if (game->map[game->p_i][game->p_j + 1] != '1')
 	{
 		if (game->map[game->p_i][game->p_j + 1] == 'C')
@@ -39,6 +42,9 @@ void	ft_move_player_right(t_game *game)
 
 void	ft_move_player_left(t_game *game)
 {
+	write(1, "Player moved! 🚶‍♂️ Total steps: [", 42);
+	ft_putnbr(++game->p_m);
+	write(1, "]\n", 2);
 	if (game->map[game->p_i][game->p_j - 1] != '1')
 	{
 		if (game->map[game->p_i][game->p_j - 1] == 'C')
@@ -64,6 +70,9 @@ void	ft_move_player_left(t_game *game)
 
 void	ft_move_player_up(t_game *game)
 {
+	write(1, "Player moved! 🚶‍♂️ Total steps: [", 42);
+	ft_putnbr(++game->p_m);
+	write(1, "]\n", 2);
 	if (game->map[game->p_i - 1][game->p_j] != '1')
 	{
 		if (game->map[game->p_i - 1][game->p_j] == 'C')
@@ -89,6 +98,9 @@ void	ft_move_player_up(t_game *game)
 
 void	ft_move_player_down(t_game *game)
 {
+	write(1, "Player moved! 🚶‍♂️ Total steps: [", 42);
+	ft_putnbr(++game->p_m);
+	write(1, "]\n", 2);
 	if (game->map[game->p_i + 1][game->p_j] != '1')
 	{
 		if (game->map[game->p_i + 1][game->p_j] == 'C')

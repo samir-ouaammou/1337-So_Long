@@ -6,7 +6,7 @@
 /*   By: souaammo <souaammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 15:22:59 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/23 19:15:47 by souaammo         ###   ########.fr       */
+/*   Updated: 2024/12/24 13:29:25 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,12 @@ typedef struct s_game
 	int		p_j;
 	int		d_i;
 	int		d_j;
+	int		p_m;
 	int		i;
 	int		j;
 }			t_game;
 
+void		ft_putnbr(int nbr);
 int			ft_close_window(void);
 char		*get_next_line(int fd);
 void		ft_free_map(char **temp);
