@@ -126,6 +126,8 @@ void	ft_move_player_down(t_game *game)
 
 int	ft_key_hook(int keycode, t_game *game)
 {
+	if (keycode == 65307)
+		exit(0);
 	if ((keycode == 65363 || keycode == 'd') && game->p_j < game->j - 2)
 		ft_move_player_right(game);
 	else if ((keycode == 65361 || keycode == 'a') && game->p_j > 1)
