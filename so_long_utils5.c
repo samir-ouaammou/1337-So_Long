@@ -6,7 +6,7 @@
 /*   By: souaammo <souaammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 15:21:19 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/28 11:59:43 by souaammo         ###   ########.fr       */
+/*   Updated: 2024/12/28 15:25:06 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,25 @@ void	ft_free_and_exit(t_game *game, char *msg)
 
 int	ft_close_window(t_game *game)
 {
-	mlx_destroy_image(game->mlx, game->w_img);
-	mlx_destroy_image(game->mlx, game->f_img);
-	mlx_destroy_image(game->mlx, game->p_img);
-	mlx_destroy_image(game->mlx, game->m_img);
-	mlx_destroy_image(game->mlx, game->d_o_img);
-	mlx_destroy_image(game->mlx, game->d_c_img);
-	mlx_destroy_window(game->mlx, game->win);
-	mlx_destroy_display(game->mlx);
+	if (game->w_img)
+		mlx_destroy_image(game->mlx, game->w_img);
+	if (game->f_img)
+		mlx_destroy_image(game->mlx, game->f_img);
+	if (game->p_img)
+		mlx_destroy_image(game->mlx, game->p_img);
+	if (game->m_img)
+		mlx_destroy_image(game->mlx, game->m_img);
+	if (game->d_o_img)
+		mlx_destroy_image(game->mlx, game->d_o_img);
+	if (game->d_c_img)
+		mlx_destroy_image(game->mlx, game->d_c_img);
+	if (game->win)
+		mlx_destroy_window(game->mlx, game->win);
+	if (game->mlx)
+		mlx_destroy_display(game->mlx);
 	ft_free_map(game->map);
-	free(game->mlx);
+	if (game->mlx)
+		free(game->mlx);
 	exit(0);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: souaammo <souaammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 15:20:25 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/28 12:04:10 by souaammo         ###   ########.fr       */
+/*   Updated: 2024/12/28 15:57:44 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_put_image_to_window(t_game *game, int nbr)
 		game->p_i = game->i;
 		game->p_j = game->j;
 		mlx_put_image_to_window(game->mlx, game->win, game->p_img, game->j * 64,
-				game->i * 64);
+			game->i * 64);
 	}
 	else if (nbr == 'E')
 	{
@@ -66,7 +66,7 @@ void	ft_draw_map(t_game *game)
 	}
 }
 
-void	ft_load_game_image(t_game *game)
+void	ft_read_image(t_game *game)
 {
 	game->w_img = mlx_xpm_file_to_image(game->mlx, "textures/wall.xpm",
 			&game->i, &game->j);
@@ -80,6 +80,12 @@ void	ft_load_game_image(t_game *game)
 			&game->i, &game->j);
 	game->d_o_img = mlx_xpm_file_to_image(game->mlx, "textures/door_open.xpm",
 			&game->i, &game->j);
+	if (!game->w_img || !game->f_img || !game->p_img || !game->m_img
+		|| !game->d_c_img || !game->d_o_img)
+	{
+		write (2, "Error:\nFailed to read image file\n", 33);
+		ft_close_window(game);
+	}
 }
 
 int	main(int ac, char **av)
@@ -98,9 +104,7 @@ int	main(int ac, char **av)
 			"Game Si Samir");
 	if (!game.win)
 		ft_free_and_exit(&game, "Error\nerror mlw new window\n");
-	ft_load_game_image(&game);
-	if (!game.w_img)
-		ft_free_and_exit(&game, "Error\nerror mlx xpm file to image\n");
+	ft_read_image(&game);
 	ft_draw_map(&game);
 	mlx_key_hook(game.win, ft_key_hook, &game);
 	mlx_hook(game.win, 17, 0, ft_close_window, &game);

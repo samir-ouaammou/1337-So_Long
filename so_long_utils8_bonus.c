@@ -34,30 +34,49 @@ void	ft_free_and_exit(char **temp, char *msg)
 
 void	ft_free_image(t_game *game)
 {
-	mlx_destroy_image(game->mlx, game->w_img);
-	mlx_destroy_image(game->mlx, game->f_img);
-	mlx_destroy_image(game->mlx, game->d_img);
-	mlx_destroy_image(game->mlx, game->p1_img);
-	mlx_destroy_image(game->mlx, game->p2_img);
-	mlx_destroy_image(game->mlx, game->p3_img);
-	mlx_destroy_image(game->mlx, game->m1_img);
-	mlx_destroy_image(game->mlx, game->m2_img);
-	mlx_destroy_image(game->mlx, game->m3_img);
-	mlx_destroy_image(game->mlx, game->m4_img);
-	mlx_destroy_image(game->mlx, game->e1_img);
-	mlx_destroy_image(game->mlx, game->e2_img);
-	mlx_destroy_image(game->mlx, game->e3_img);
-	mlx_destroy_image(game->mlx, game->e4_img);
-	mlx_destroy_image(game->mlx, game->e5_img);
-	mlx_destroy_image(game->mlx, game->e6_img);
+	if (game->p2_img)
+		mlx_destroy_image(game->mlx, game->p2_img);
+	if (game->p3_img)
+		mlx_destroy_image(game->mlx, game->p3_img);
+	if (game->m1_img)
+		mlx_destroy_image(game->mlx, game->m1_img);
+	if (game->m2_img)
+		mlx_destroy_image(game->mlx, game->m2_img);
+	if (game->m3_img)
+		mlx_destroy_image(game->mlx, game->m3_img);
+	if (game->m4_img)
+		mlx_destroy_image(game->mlx, game->m4_img);
+	if (game->e1_img)
+		mlx_destroy_image(game->mlx, game->e1_img);
+	if (game->e2_img)
+		mlx_destroy_image(game->mlx, game->e2_img);
+	if (game->e3_img)
+		mlx_destroy_image(game->mlx, game->e3_img);
+	if (game->e4_img)
+		mlx_destroy_image(game->mlx, game->e4_img);
+	if (game->e5_img)
+		mlx_destroy_image(game->mlx, game->e5_img);
+	if (game->e6_img)
+		mlx_destroy_image(game->mlx, game->e6_img);
 }
 
 int	ft_close_game(t_game *game)
 {
+	if (game->w_img)
+		mlx_destroy_image(game->mlx, game->w_img);
+	if (game->f_img)
+		mlx_destroy_image(game->mlx, game->f_img);
+	if (game->d_img)
+		mlx_destroy_image(game->mlx, game->d_img);
+	if (game->p1_img)
+		mlx_destroy_image(game->mlx, game->p1_img);
 	ft_free_image(game);
-	mlx_destroy_window(game->mlx, game->win);
-	mlx_destroy_display(game->mlx);
-	free(game->mlx);
+	if (game->win)
+		mlx_destroy_window(game->mlx, game->win);
+	if (game->mlx)
+		mlx_destroy_display(game->mlx);
+	if (game->mlx)
+		free(game->mlx);
 	game->i = 0;
 	while (game->i < game->height)
 		free(game->map[game->i++]);
