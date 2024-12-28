@@ -6,7 +6,7 @@
 /*   By: souaammo <souaammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 15:22:47 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/24 14:36:33 by souaammo         ###   ########.fr       */
+/*   Updated: 2024/12/28 12:00:37 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_move_player_right(t_game *game)
 			&& game->money == game->nbr)
 		{
 			write(1, "Congratulations! You've won the game!\n", 38);
-			exit(0);
+			ft_close_window(game);
 		}
 	}
 }
@@ -63,7 +63,7 @@ void	ft_move_player_left(t_game *game)
 			&& game->money == game->nbr)
 		{
 			write(1, "Congratulations! You've won the game!\n", 38);
-			exit(0);
+			ft_close_window(game);
 		}
 	}
 }
@@ -91,7 +91,7 @@ void	ft_move_player_up(t_game *game)
 			&& game->money == game->nbr)
 		{
 			write(1, "Congratulations! You've won the game!\n", 38);
-			exit(0);
+			ft_close_window(game);
 		}
 	}
 }
@@ -119,7 +119,7 @@ void	ft_move_player_down(t_game *game)
 			&& game->money == game->nbr)
 		{
 			write(1, "Congratulations! You've won the game!\n", 38);
-			exit(0);
+			ft_close_window(game);
 		}
 	}
 }
@@ -127,7 +127,7 @@ void	ft_move_player_down(t_game *game)
 int	ft_key_hook(int keycode, t_game *game)
 {
 	if (keycode == 65307)
-		exit(0);
+		ft_close_window(game);
 	if ((keycode == 65363 || keycode == 'd') && game->p_j < game->j - 2)
 		ft_move_player_right(game);
 	else if ((keycode == 65361 || keycode == 'a') && game->p_j > 1)

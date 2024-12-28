@@ -6,7 +6,7 @@
 /*   By: souaammo <souaammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 15:22:59 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/24 13:29:25 by souaammo         ###   ########.fr       */
+/*   Updated: 2024/12/28 10:30:43 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,12 @@ typedef struct s_game
 }			t_game;
 
 void		ft_putnbr(int nbr);
-int			ft_close_window(void);
 char		*get_next_line(int fd);
 void		ft_free_map(char **temp);
 size_t		ft_strlen(const char *str);
-char		*ft_strdup(const char *str);
 void		ft_init_game(t_game *game);
+char		*ft_strdup(const char *str);
+int			ft_close_window(t_game *game);
 void		ft_window_size(t_game *window);
 char		*ft_strjoin(char *s1, char *s2);
 char		**ft_split(char const *s, char c);

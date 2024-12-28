@@ -46,7 +46,7 @@ void	ft_putnbr(int nbr)
 		ft_putnbr(nbr / 10);
 	nbr %= 10;
 	nbr += 48;
-	write (1, &nbr, 1);
+	write(1, &nbr, 1);
 }
 
 void	ft_msgerror(char *msg, t_map_checker *map)

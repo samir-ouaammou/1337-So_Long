@@ -6,7 +6,7 @@
 /*   By: souaammo <souaammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 15:20:25 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/23 20:53:22 by souaammo         ###   ########.fr       */
+/*   Updated: 2024/12/28 12:04:10 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_put_image_to_window(t_game *game, int nbr)
 		game->p_i = game->i;
 		game->p_j = game->j;
 		mlx_put_image_to_window(game->mlx, game->win, game->p_img, game->j * 64,
-			game->i * 64);
+				game->i * 64);
 	}
 	else if (nbr == 'E')
 	{
@@ -103,7 +103,7 @@ int	main(int ac, char **av)
 		ft_free_and_exit(&game, "Error\nerror mlx xpm file to image\n");
 	ft_draw_map(&game);
 	mlx_key_hook(game.win, ft_key_hook, &game);
-	mlx_hook(game.win, 17, 0, ft_close_window, NULL);
+	mlx_hook(game.win, 17, 0, ft_close_window, &game);
 	mlx_loop(game.mlx);
 	ft_free_map(game.map);
 	return (0);
