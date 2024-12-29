@@ -17,20 +17,15 @@ LIBS = -lmlx -lXext -lX11 -lm -lbsd
 
 NAME = so_long
 
-BNAME = so_long_bonus
-
 RM = rm -rf
-
 
 all: $(NAME)
 
+bonus: $(BOBJS)
+	$(CC) $(CFLAGS) $(BOBJS) $(LIBS) -o $(NAME)
+
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
-
-bonus: $(BNAME)
-
-$(BNAME): $(BOBJS)
-	$(CC) $(CFLAGS) $(BOBJS) $(LIBS) -o $(BNAME)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -39,7 +34,4 @@ clean:
 	$(RM) $(OBJS) $(BOBJS)
 
 fclean: clean
-	$(RM) $(NAME) $(BNAME)
-	echo "Cleaned all"
-
-re: fclean all
+	$(RM) $(NAME)
