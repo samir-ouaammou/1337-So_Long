@@ -13,7 +13,8 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror
 
-LIBS = -lmlx -lXext -lX11 -lm -lbsd
+LIBS = -lmlx -lXext -lX11
+# -lm -lbsd
 
 NAME = so_long
 
@@ -35,3 +36,5 @@ clean:
 
 fclean: clean
 	$(RM) $(NAME)
+
+re: fclean all

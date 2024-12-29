@@ -68,22 +68,22 @@ void	ft_draw_map(t_game *game)
 
 void	ft_read_image(t_game *game)
 {
-	game->w_img = mlx_xpm_file_to_image(game->mlx, "textures/wall.xpm",
-			&game->i, &game->j);
-	game->f_img = mlx_xpm_file_to_image(game->mlx, "textures/floor.xpm",
-			&game->i, &game->j);
-	game->p_img = mlx_xpm_file_to_image(game->mlx, "textures/player.xpm",
-			&game->i, &game->j);
-	game->m_img = mlx_xpm_file_to_image(game->mlx, "textures/money.xpm",
-			&game->i, &game->j);
-	game->d_c_img = mlx_xpm_file_to_image(game->mlx, "textures/door_close.xpm",
-			&game->i, &game->j);
-	game->d_o_img = mlx_xpm_file_to_image(game->mlx, "textures/door_open.xpm",
-			&game->i, &game->j);
+	game->w_img = mlx_xpm_file_to_image(game->mlx,
+			"textures/Mandatory/wall.xpm", &game->i, &game->j);
+	game->f_img = mlx_xpm_file_to_image(game->mlx,
+			"textures/Mandatory/floor.xpm", &game->i, &game->j);
+	game->p_img = mlx_xpm_file_to_image(game->mlx,
+			"textures/Mandatory/player.xpm", &game->i, &game->j);
+	game->m_img = mlx_xpm_file_to_image(game->mlx,
+			"textures/Mandatory/money.xpm", &game->i, &game->j);
+	game->d_c_img = mlx_xpm_file_to_image(game->mlx,
+			"textures/Mandatory/door_close.xpm", &game->i, &game->j);
+	game->d_o_img = mlx_xpm_file_to_image(game->mlx,
+			"textures/Mandatory/door_open.xpm", &game->i, &game->j);
 	if (!game->w_img || !game->f_img || !game->p_img || !game->m_img
 		|| !game->d_c_img || !game->d_o_img)
 	{
-		write (2, "Error:\nFailed to read image file\n", 33);
+		write(2, "Error:\nFailed to read image file\n", 33);
 		ft_close_window(game);
 	}
 }
