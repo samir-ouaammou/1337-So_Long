@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: souaammo <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/12/30 11:42:39 by souaammo          #+#    #+#              #
+#    Updated: 2024/12/30 11:42:41 by souaammo         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 FILES = so_long.c so_long_utils1.c so_long_utils2.c so_long_utils3.c so_long_utils4.c \
         so_long_utils5.c so_long_utils6.c get_next_line.c get_next_line_utils.c
 
@@ -14,7 +26,6 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
 LIBS = -lmlx -lXext -lX11
-# -lm -lbsd
 
 NAME = so_long
 
