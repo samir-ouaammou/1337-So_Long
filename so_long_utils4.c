@@ -3,14 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   so_long_utils4.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: souaammo <souaammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/30 11:45:03 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/30 11:45:05 by souaammo         ###   ########.fr       */
+/*   Created: 2024/12/30 11:44:50 by souaammo          #+#    #+#             */
+/*   Updated: 2025/01/03 20:06:36 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+char	*ft_itoa(int n)
+{
+	char	*str;
+	int		len;
+	int		temp;
+
+	len = 0;
+	temp = n;
+	if (n == 0)
+		return ("0");
+	while (temp != 0)
+	{
+		len++;
+		temp /= 10;
+	}
+	str = (char *)malloc(len + 1);
+	if (!str)
+		return (NULL);
+	str[len] = '\0';
+	while (n != 0)
+	{
+		str[--len] = (n % 10) + '0';
+		n /= 10;
+	}
+	return (str);
+}
 
 int	ft_strcmp(const char *s1, const char *s2)
 {
@@ -38,30 +65,4 @@ void	ft_free_map(char **temp)
 		}
 		free(temp);
 	}
-}
-
-void	ft_putnbr(int nbr)
-{
-	if (nbr > 9)
-		ft_putnbr(nbr / 10);
-	nbr %= 10;
-	nbr += 48;
-	write(1, &nbr, 1);
-}
-
-void	ft_msgerror(char *msg, t_map_checker *map)
-{
-	if (map != NULL)
-	{
-		if (map->str)
-			free(map->str);
-		if (map->line)
-			free(map->line);
-		if (map->map)
-			ft_free_map(map->map);
-		if (map->copy)
-			ft_free_map(map->copy);
-	}
-	write(2, msg, ft_strlen(msg));
-	exit(-1);
 }

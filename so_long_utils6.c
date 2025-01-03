@@ -3,138 +3,97 @@
 /*                                                        :::      ::::::::   */
 /*   so_long_utils6.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: souaammo <souaammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/30 11:46:02 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/30 11:46:04 by souaammo         ###   ########.fr       */
+/*   Created: 2024/12/30 11:45:53 by souaammo          #+#    #+#             */
+/*   Updated: 2025/01/03 20:06:29 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	ft_move_player_right(t_game *game)
+void	ft_put_money_to_window(t_game *game)
 {
-	if (game->map[game->p_i][game->p_j + 1] != '1')
-	{
-		write(1, "Player moved! 🚶‍♂️ Total steps: [", 42);
-		ft_putnbr(++game->p_m);
-		write(1, "]\n", 2);
-		if (game->map[game->p_i][game->p_j + 1] == 'C')
-			game->nbr++;
-		mlx_put_image_to_window(game->mlx, game->win, game->f_img, game->p_j
-			* 64, game->p_i * 64);
-		game->map[game->p_i][game->p_j] = '0';
-		game->p_j++;
-		game->map[game->p_i][game->p_j] = 'P';
-		mlx_put_image_to_window(game->mlx, game->win, game->p_img, game->p_j
-			* 64, game->p_i * 64);
-		if (game->nbr == game->money)
-			mlx_put_image_to_window(game->mlx, game->win, game->d_o_img,
-				game->d_j * 64, game->d_i * 64);
-		if (game->p_i == game->d_i && game->p_j == game->d_j
-			&& game->money == game->nbr)
-		{
-			write(1, "Congratulations! You've won the game!\n", 38);
-			ft_close_window(game);
-		}
-	}
+	game->player_animation_step = (game->player_animation_speed / 20) % 5;
+	if (game->player_animation_step == 0)
+		ft_put_img_to_win(game, game->m1_img);
+	else if (game->player_animation_step == 1)
+		ft_put_img_to_win(game, game->m2_img);
+	else if (game->player_animation_step == 2)
+		ft_put_img_to_win(game, game->m3_img);
+	else if (game->player_animation_step == 3)
+		ft_put_img_to_win(game, game->m4_img);
+	else if (game->player_animation_step == 4)
+		ft_put_img_to_win(game, game->m1_img);
 }
 
-void	ft_move_player_left(t_game *game)
+void	ft_put_player_to_window(t_game *game)
 {
-	if (game->map[game->p_i][game->p_j - 1] != '1')
-	{
-		write(1, "Player moved! 🚶‍♂️ Total steps: [", 42);
-		ft_putnbr(++game->p_m);
-		write(1, "]\n", 2);
-		if (game->map[game->p_i][game->p_j - 1] == 'C')
-			game->nbr++;
-		mlx_put_image_to_window(game->mlx, game->win, game->f_img, game->p_j
-			* 64, game->p_i * 64);
-		game->map[game->p_i][game->p_j] = '0';
-		game->p_j--;
-		game->map[game->p_i][game->p_j] = 'P';
-		mlx_put_image_to_window(game->mlx, game->win, game->p_img, game->p_j
-			* 64, game->p_i * 64);
-		if (game->nbr == game->money)
-			mlx_put_image_to_window(game->mlx, game->win, game->d_o_img,
-				game->d_j * 64, game->d_i * 64);
-		if (game->p_i == game->d_i && game->p_j == game->d_j
-			&& game->money == game->nbr)
-		{
-			write(1, "Congratulations! You've won the game!\n", 38);
-			ft_close_window(game);
-		}
-	}
+	game->player_animation_step = (game->player_animation_speed / (15 * 2)) % 3;
+	if (game->player_animation_step == 0)
+		ft_put_img_to_win(game, game->p1_img);
+	else if (game->player_animation_step == 1)
+		ft_put_img_to_win(game, game->p2_img);
+	else if (game->player_animation_step == 2)
+		ft_put_img_to_win(game, game->p1_img);
 }
 
-void	ft_move_player_up(t_game *game)
+void	ft_put_enemy_to_window(t_game *game)
 {
-	if (game->map[game->p_i - 1][game->p_j] != '1')
-	{
-		write(1, "Player moved! 🚶‍♂️ Total steps: [", 42);
-		ft_putnbr(++game->p_m);
-		write(1, "]\n", 2);
-		if (game->map[game->p_i - 1][game->p_j] == 'C')
-			game->nbr++;
-		mlx_put_image_to_window(game->mlx, game->win, game->f_img, game->p_j
-			* 64, game->p_i * 64);
-		game->map[game->p_i][game->p_j] = '0';
-		game->p_i--;
-		game->map[game->p_i][game->p_j] = 'P';
-		mlx_put_image_to_window(game->mlx, game->win, game->p_img, game->p_j
-			* 64, game->p_i * 64);
-		if (game->nbr == game->money)
-			mlx_put_image_to_window(game->mlx, game->win, game->d_o_img,
-				game->d_j * 64, game->d_i * 64);
-		if (game->p_i == game->d_i && game->p_j == game->d_j
-			&& game->money == game->nbr)
-		{
-			write(1, "Congratulations! You've won the game!\n", 38);
-			ft_close_window(game);
-		}
-	}
+	game->player_animation_step = (game->player_animation_speed / 15) % 7;
+	if (game->player_animation_step == 0)
+		ft_put_img_to_win(game, game->e1_img);
+	else if (game->player_animation_step == 1)
+		ft_put_img_to_win(game, game->e2_img);
+	else if (game->player_animation_step == 2)
+		ft_put_img_to_win(game, game->e3_img);
+	else if (game->player_animation_step == 3)
+		ft_put_img_to_win(game, game->e4_img);
+	else if (game->player_animation_step == 4)
+		ft_put_img_to_win(game, game->e5_img);
+	else if (game->player_animation_step == 5)
+		ft_put_img_to_win(game, game->e6_img);
+	else if (game->player_animation_step == 6)
+		ft_put_img_to_win(game, game->e1_img);
 }
 
-void	ft_move_player_down(t_game *game)
+void	ft_sleep(t_game *game)
 {
-	if (game->map[game->p_i + 1][game->p_j] != '1')
-	{
-		write(1, "Player moved! 🚶‍♂️ Total steps: [", 42);
-		ft_putnbr(++game->p_m);
-		write(1, "]\n", 2);
-		if (game->map[game->p_i + 1][game->p_j] == 'C')
-			game->nbr++;
-		mlx_put_image_to_window(game->mlx, game->win, game->f_img, game->p_j
-			* 64, game->p_i * 64);
-		game->map[game->p_i][game->p_j] = '0';
-		game->p_i++;
-		game->map[game->p_i][game->p_j] = 'P';
-		mlx_put_image_to_window(game->mlx, game->win, game->p_img, game->p_j
-			* 64, game->p_i * 64);
-		if (game->nbr == game->money)
-			mlx_put_image_to_window(game->mlx, game->win, game->d_o_img,
-				game->d_j * 64, game->d_i * 64);
-		if (game->p_i == game->d_i && game->p_j == game->d_j
-			&& game->money == game->nbr)
-		{
-			write(1, "Congratulations! You've won the game!\n", 38);
-			ft_close_window(game);
-		}
-	}
+	game->player_animation_speed++;
+	game->i = 0;
+	if (game->height * game->width <= 250)
+		usleep(4000);
+	else if (game->height * game->width <= 500)
+		usleep(3000);
+	else if (game->height * game->width <= 800)
+		usleep(1000);
 }
 
-int	ft_key_hook(int keycode, t_game *game)
+int	ft_file_put_img_to_window(t_game *game)
 {
-	if (keycode == 65307)
-		ft_close_window(game);
-	if ((keycode == 65363 || keycode == 'd') && game->p_j < game->j - 2)
-		ft_move_player_right(game);
-	else if ((keycode == 65361 || keycode == 'a') && game->p_j > 1)
-		ft_move_player_left(game);
-	else if ((keycode == 65362 || keycode == 'w') && game->p_i > 1)
-		ft_move_player_up(game);
-	else if ((keycode == 65364 || keycode == 's') && game->p_i < game->i - 2)
-		ft_move_player_down(game);
+	ft_sleep(game);
+	while (game->map[game->i])
+	{
+		game->j = 0;
+		while (game->map[game->i][game->j])
+		{
+			if (game->map[game->i][game->j] == '1' && game->tmp == 0)
+				ft_put_img_to_win(game, game->w_img);
+			else if (game->map[game->i][game->j] == '0'
+					|| game->map[game->i][game->j] == 'E')
+				ft_put_img_to_win(game, game->f_img);
+			if (game->i == game->d_i && game->j == game->d_j
+				&& game->money == game->nbr)
+				ft_put_img_to_win(game, game->d_img);
+			else if (game->map[game->i][game->j] == 'P')
+				ft_put_player_to_window(game);
+			else if (game->map[game->i][game->j] == 'C')
+				ft_put_money_to_window(game);
+			else if (game->map[game->i][game->j] == 'X')
+				ft_put_enemy_to_window(game);
+			game->j++;
+		}
+		game->i++;
+	}
 	return (0);
 }

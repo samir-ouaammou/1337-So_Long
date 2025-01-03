@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: souaammo <souaammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/30 11:44:08 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/30 11:44:10 by souaammo         ###   ########.fr       */
+/*   Created: 2024/12/30 11:43:58 by souaammo          #+#    #+#             */
+/*   Updated: 2025/01/03 20:06:41 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_checkmap(char *str, t_map_checker *map, char c)
 	while (str[map->i])
 	{
 		c = str[map->i];
-		if (c == '0')
+		if (c == '0' || c == 'X')
 			map->floor++;
 		else if (c == '1')
 			map->wall++;
@@ -28,7 +28,8 @@ void	ft_checkmap(char *str, t_map_checker *map, char c)
 			map->door++;
 		else if (c == 'P')
 			map->player++;
-		else if (c != '0' && c != '1' && c != 'C' && c != 'E' && c != 'P')
+		else if (c != '0' && c != '1' && c != 'C' && c != 'E' && c != 'P'
+			&& c != 'X')
 		{
 			write(2, "Error\nInvalid character found. Only the ", 40);
 			write(2, "following are allowed:\n0 = Floor\n", 33);
@@ -81,7 +82,8 @@ void	ft_count_and_check_flood_fill(t_map_checker *map)
 		map->j = 0;
 		while (map->copy[map->i][map->j])
 		{
-			if (map->copy[map->i][map->j] == '0')
+			if (map->copy[map->i][map->j] == '0'
+				|| map->copy[map->i][map->j] == 'X')
 				map->nbr++;
 			if (map->copy[map->i][map->j] == '*')
 				map->len++;

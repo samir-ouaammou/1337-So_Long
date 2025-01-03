@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: souaammo <souaammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 11:42:29 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/30 11:42:31 by souaammo         ###   ########.fr       */
+/*   Updated: 2025/01/03 20:10:23 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	ft_strchr(const char *str, char c)
 	return (0);
 }
 
-static char	*ft_strcat(char *dst, const char *src)
+char	*ft_strcat(char *dst, const char *src)
 {
 	size_t	i;
 	size_t	d_len;

@@ -3,82 +3,96 @@
 /*                                                        :::      ::::::::   */
 /*   so_long_utils5.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: souaammo <souaammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/30 11:45:27 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/30 11:45:41 by souaammo         ###   ########.fr       */
+/*   Created: 2024/12/30 11:45:15 by souaammo          #+#    #+#             */
+/*   Updated: 2025/01/03 20:06:32 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	ft_init_game(t_game *game)
+void	ft_put_img_to_win(t_game *game, void *img)
 {
-	game->mlx = NULL;
-	game->win = NULL;
-	game->p_img = NULL;
-	game->m_img = NULL;
-	game->f_img = NULL;
-	game->w_img = NULL;
-	game->k_img = NULL;
-	game->d_c_img = NULL;
-	game->d_o_img = NULL;
-	game->map = NULL;
-	game->height = 0;
-	game->width = 0;
-	game->floor = 0;
-	game->money = 0;
-	game->door = 0;
-	game->wall = 0;
-	game->temp = 0;
-	game->nbr = 0;
-	game->p_i = 0;
-	game->p_j = 0;
-	game->d_i = 0;
-	game->d_j = 0;
-	game->p_m = 0;
-	game->i = 0;
-	game->j = 0;
+	mlx_put_image_to_window(game->mlx, game->win, img, game->j * 64, game->i
+		* 64);
 }
 
-void	ft_free_and_exit(t_game *game, char *msg)
+void	ft_put_str_to_window(t_game *game, int nbr)
 {
-	if (game->map)
-		ft_free_map(game->map);
-	ft_msgerror(msg, NULL);
+	game->str = ft_itoa(nbr);
+	mlx_put_image_to_window(game->mlx, game->win, game->w_img, 0, 0);
+	mlx_put_image_to_window(game->mlx, game->win, game->w_img, 64, 0);
+	mlx_put_image_to_window(game->mlx, game->win, game->w_img, 128, 0);
+	mlx_string_put(game->mlx, game->win, 32, 32, 0xFFFFFF, "Steps: ");
+	mlx_string_put(game->mlx, game->win, 80, 32, 0xFFFFFF, game->str);
+	free(game->str);
+	game->str = NULL;
 }
 
-int	ft_close_window(t_game *game)
+void	ft_check_read_image(t_game *game)
 {
-	if (game->w_img)
-		mlx_destroy_image(game->mlx, game->w_img);
-	if (game->f_img)
-		mlx_destroy_image(game->mlx, game->f_img);
-	if (game->p_img)
-		mlx_destroy_image(game->mlx, game->p_img);
-	if (game->m_img)
-		mlx_destroy_image(game->mlx, game->m_img);
-	if (game->d_o_img)
-		mlx_destroy_image(game->mlx, game->d_o_img);
-	if (game->d_c_img)
-		mlx_destroy_image(game->mlx, game->d_c_img);
-	if (game->win)
-		mlx_destroy_window(game->mlx, game->win);
-	if (game->mlx)
-		mlx_destroy_display(game->mlx);
-	ft_free_map(game->map);
-	if (game->mlx)
-		free(game->mlx);
-	exit(0);
-	return (0);
+	if (!game->w_img || !game->f_img || !game->d_img)
+	{
+		write (2, "Error:\nFailed to read image file\n", 33);
+		ft_close_game(game);
+	}
+	if (!game->p1_img || !game->p2_img || !game->p3_img)
+	{
+		write (2, "Error:\nFailed to read image file\n", 33);
+		ft_close_game(game);
+	}
+	if (!game->m1_img || !game->m2_img || !game->m3_img || !game->m4_img)
+	{
+		write (2, "Error:\nFailed to read image file\n", 33);
+		ft_close_game(game);
+	}
+	if (!game->e1_img || !game->e2_img || !game->e3_img || !game->e4_img
+		|| !game->e5_img || !game->e6_img)
+	{
+		write (2, "Error:\nFailed to read image file\n", 33);
+		ft_close_game(game);
+	}
 }
 
-void	ft_window_size(t_game *window)
+void	ft_enemy_img(t_game *game)
 {
-	window->height = 0;
-	while (window->map[window->height])
-		window->height++;
-	window->width = ft_strlen(window->map[0]);
-	window->height *= 64;
-	window->width *= 64;
+	game->e1_img = mlx_xpm_file_to_image(game->mlx,
+			"textures/Bonus/Enemy/e1.xpm", &game->i, &game->j);
+	game->e2_img = mlx_xpm_file_to_image(game->mlx,
+			"textures/Bonus/Enemy/e2.xpm", &game->i, &game->j);
+	game->e3_img = mlx_xpm_file_to_image(game->mlx,
+			"textures/Bonus/Enemy/e3.xpm", &game->i, &game->j);
+	game->e4_img = mlx_xpm_file_to_image(game->mlx,
+			"textures/Bonus/Enemy/e4.xpm", &game->i, &game->j);
+	game->e5_img = mlx_xpm_file_to_image(game->mlx,
+			"textures/Bonus/Enemy/e5.xpm", &game->i, &game->j);
+	game->e6_img = mlx_xpm_file_to_image(game->mlx,
+			"textures/Bonus/Enemy/e6.xpm", &game->i, &game->j);
+}
+
+void	ft_read_to_img(t_game *game)
+{
+	game->w_img = mlx_xpm_file_to_image(game->mlx, "textures/Bonus/Wall/w.xpm",
+			&game->i, &game->j);
+	game->f_img = mlx_xpm_file_to_image(game->mlx, "textures/Bonus/Floor/f.xpm",
+			&game->i, &game->j);
+	game->m1_img = mlx_xpm_file_to_image(game->mlx,
+			"textures/Bonus/Money/m1.xpm", &game->i, &game->j);
+	game->m2_img = mlx_xpm_file_to_image(game->mlx,
+			"textures/Bonus/Money/m2.xpm", &game->i, &game->j);
+	game->m3_img = mlx_xpm_file_to_image(game->mlx,
+			"textures/Bonus/Money/m3.xpm", &game->i, &game->j);
+	game->m4_img = mlx_xpm_file_to_image(game->mlx,
+			"textures/Bonus/Money/m4.xpm", &game->i, &game->j);
+	game->d_img = mlx_xpm_file_to_image(game->mlx, "textures/Bonus/Door/d.xpm",
+			&game->i, &game->j);
+	game->p1_img = mlx_xpm_file_to_image(game->mlx,
+			"textures/Bonus/Player/p1.xpm", &game->i, &game->j);
+	game->p2_img = mlx_xpm_file_to_image(game->mlx,
+			"textures/Bonus/Player/p2.xpm", &game->i, &game->j);
+	game->p3_img = mlx_xpm_file_to_image(game->mlx,
+			"textures/Bonus/Player/p3.xpm", &game->i, &game->j);
+	ft_enemy_img(game);
+	ft_check_read_image(game);
 }

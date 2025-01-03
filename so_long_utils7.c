@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long_utils7_bonus.c                             :+:      :+:    :+:   */
+/*   so_long_utils7.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: souaammo <souaammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 11:46:22 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/30 11:46:23 by souaammo         ###   ########.fr       */
+/*   Updated: 2025/01/03 20:06:25 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long_bonus.h"
+#include "so_long.h"
 
 void	ft_move_player_left(t_game *game)
 {

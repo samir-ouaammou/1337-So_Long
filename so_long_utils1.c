@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long_utils1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: souaammo <souaammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/30 11:43:48 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/30 11:43:50 by souaammo         ###   ########.fr       */
+/*   Created: 2024/12/30 11:43:38 by souaammo          #+#    #+#             */
+/*   Updated: 2025/01/03 20:06:44 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	ft_init_map_elements(t_map_checker *elements)
 	elements->money = 0;
 	elements->door = 0;
 	elements->player = 0;
+	elements->enemy = 0;
 	elements->copy = 0;
 	elements->map = 0;
 	elements->line = 0;

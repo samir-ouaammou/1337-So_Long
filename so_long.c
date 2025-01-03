@@ -3,89 +3,63 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: souaammo <souaammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/30 11:43:13 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/30 11:43:15 by souaammo         ###   ########.fr       */
+/*   Created: 2024/12/30 11:42:50 by souaammo          #+#    #+#             */
+/*   Updated: 2025/01/03 20:06:15 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	ft_put_image_to_window(t_game *game, int nbr)
+void	ft_init_game(t_game *game)
 {
-	if (nbr == 0)
-		mlx_put_image_to_window(game->mlx, game->win, game->f_img, game->j * 64,
-			game->i * 64);
-	else if (nbr == 1)
-		mlx_put_image_to_window(game->mlx, game->win, game->w_img, game->j * 64,
-			game->i * 64);
-	else if (nbr == 'C')
-		mlx_put_image_to_window(game->mlx, game->win, game->m_img, game->j * 64,
-			game->i * 64);
-	else if (nbr == 'P')
-	{
-		game->p_i = game->i;
-		game->p_j = game->j;
-		mlx_put_image_to_window(game->mlx, game->win, game->p_img, game->j * 64,
-			game->i * 64);
-	}
-	else if (nbr == 'E')
-	{
-		game->d_i = game->i;
-		game->d_j = game->j;
-		mlx_put_image_to_window(game->mlx, game->win, game->f_img, game->j * 64,
-			game->i * 64);
-	}
-}
-
-void	ft_draw_map(t_game *game)
-{
+	game->mlx = NULL;
+	game->win = NULL;
+	game->map = NULL;
+	game->str = NULL;
+	game->width = 0;
+	game->height = 0;
+	game->money = 0;
+	game->nbr = 0;
+	game->tmp = 0;
+	game->p_i = 0;
+	game->p_j = 0;
+	game->d_i = 0;
+	game->d_j = 0;
 	game->i = 0;
-	while (game->map[game->i])
-	{
-		game->j = 0;
-		while (game->map[game->i][game->j])
-		{
-			if (game->map[game->i][game->j] == 'P')
-				ft_put_image_to_window(game, 'P');
-			else if (game->map[game->i][game->j] == '1')
-				ft_put_image_to_window(game, 1);
-			else if (game->map[game->i][game->j] == 'C')
-			{
-				game->money++;
-				ft_put_image_to_window(game, 'C');
-			}
-			else if (game->map[game->i][game->j] == 'E')
-				ft_put_image_to_window(game, 'E');
-			else
-				ft_put_image_to_window(game, 0);
-			game->j++;
-		}
-		game->i++;
-	}
+	game->j = 0;
+	game->player_movement = 0;
+	game->player_animation_speed = 0;
+	game->enemy_animation_speed = 0;
+	game->money_animation_speed = 0;
+	game->door_animation_speed = 0;
 }
 
-void	ft_read_image(t_game *game)
+void	ft_window_size(t_game *game)
 {
-	game->w_img = mlx_xpm_file_to_image(game->mlx,
-			"textures/Mandatory/wall.xpm", &game->i, &game->j);
-	game->f_img = mlx_xpm_file_to_image(game->mlx,
-			"textures/Mandatory/floor.xpm", &game->i, &game->j);
-	game->p_img = mlx_xpm_file_to_image(game->mlx,
-			"textures/Mandatory/player.xpm", &game->i, &game->j);
-	game->m_img = mlx_xpm_file_to_image(game->mlx,
-			"textures/Mandatory/money.xpm", &game->i, &game->j);
-	game->d_c_img = mlx_xpm_file_to_image(game->mlx,
-			"textures/Mandatory/door_close.xpm", &game->i, &game->j);
-	game->d_o_img = mlx_xpm_file_to_image(game->mlx,
-			"textures/Mandatory/door_open.xpm", &game->i, &game->j);
-	if (!game->w_img || !game->f_img || !game->p_img || !game->m_img
-		|| !game->d_c_img || !game->d_o_img)
+	while (game->map[game->height])
 	{
-		write(2, "Error:\nFailed to read image file\n", 33);
-		ft_close_window(game);
+		game->width = 0;
+		while (game->map[game->height][game->width])
+		{
+			if (game->map[game->height][game->width] == 'P')
+			{
+				game->p_i = game->height;
+				game->p_j = game->width;
+			}
+			if (game->map[game->height][game->width] == 'E')
+			{
+				game->d_i = game->height;
+				game->d_j = game->width;
+			}
+			if (game->map[game->height][game->width] == 'C')
+				game->money++;
+			game->width++;
+		}
+		game->height++;
 	}
+	game->width = ft_strlen(game->map[0]);
 }
 
 int	main(int ac, char **av)
@@ -99,16 +73,15 @@ int	main(int ac, char **av)
 	ft_window_size(&game);
 	game.mlx = mlx_init();
 	if (!game.mlx)
-		ft_free_and_exit(&game, "Error\nerror mlx init\n");
-	game.win = mlx_new_window(game.mlx, game.width, game.height,
+		ft_free_and_exit(game.map, "Error\nerror mlx init\n");
+	game.win = mlx_new_window(game.mlx, game.width * 64, game.height * 64,
 			"Game Si Samir");
 	if (!game.win)
-		ft_free_and_exit(&game, "Error\nerror mlw new window\n");
-	ft_read_image(&game);
-	ft_draw_map(&game);
+		ft_free_and_exit(game.map, "Error\nerror mlx to new window\n");
+	ft_read_to_img(&game);
+	mlx_loop_hook(game.mlx, ft_file_put_img_to_window, &game);
 	mlx_key_hook(game.win, ft_key_hook, &game);
-	mlx_hook(game.win, 17, 0, ft_close_window, &game);
+	mlx_hook(game.win, 17, 0, ft_close_game, &game);
 	mlx_loop(game.mlx);
-	ft_free_map(game.map);
 	return (0);
 }

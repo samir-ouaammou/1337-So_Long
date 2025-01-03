@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long_utils8_bonus.c                             :+:      :+:    :+:   */
+/*   so_long_utils8.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souaammo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: souaammo <souaammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 11:46:32 by souaammo          #+#    #+#             */
-/*   Updated: 2024/12/30 11:46:34 by souaammo         ###   ########.fr       */
+/*   Updated: 2025/01/03 20:06:21 by souaammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long_bonus.h"
+#include "so_long.h"
 
 void	ft_msgerror(char *msg, t_map_checker *map)
 {
