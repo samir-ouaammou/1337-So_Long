@@ -43,7 +43,7 @@ so_long/
 
 2. Navigate to the project directory:
    ```bash
-   cd 1337-so_long 
+   cd 1337-so_long/Projects
    ```
 
 3. Compile the source files using `make`:
