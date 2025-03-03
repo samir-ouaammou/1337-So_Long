@@ -26,22 +26,22 @@
 
 typedef struct s_map_checker
 {
-	int		floor;
-	int		wall;
-	int		money;
-	int		door;
-	int		enemy;
-	int		player;
+	int	floor;
+	int	wall;
+	int	money;
+	int	door;
+	int	enemy;
+	int	player;
 	char	**copy;
 	char	**map;
 	char	*line;
 	char	*temp;
 	char	*str;
-	int		len;
-	int		nbr;
-	int		fd;
-	int		i;
-	int		j;
+	int	len;
+	int	nbr;
+	int	fd;
+	int	i;
+	int	j;
 }			t_map_checker;
 
 typedef struct s_game
