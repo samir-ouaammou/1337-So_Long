@@ -38,12 +38,12 @@ so_long/
 
 1. Clone the repository to your local machine:
    ```bash
-   git clone https://github.com/samir-ouaammou/1337-so_long  
+   git clone https://github.com/samir-ouaammou/2D-Game
    ```
 
 2. Navigate to the project directory:
    ```bash
-   cd 1337-so_long/Project
+   cd 2D-Game/Project
    ```
 
 3. Compile the source files using `make`:
